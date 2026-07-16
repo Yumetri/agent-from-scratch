@@ -26,13 +26,40 @@
 
 ## Roadmap
 
-1. 400줄로 짭 Claude Code 만들기 (agent-loop)
+1. [500줄로 ClaudeCode 만들기](notebooks/001_500_lines_claudecode.ipynb)
+
+## Quick Start
+
+```bash
+uv sync
+cp .env.example .env
+uv run --group dev pytest
+```
+
+`.env`에는 OpenRouter 또는 Gemini API 키를 넣습니다. 원본 강의 예제는 OpenRouter를 먼저 쓰고, 인증 실패나 키 누락 시 Gemini로 fallback하는 구조입니다.
+
+1강의 최종 예제 실행:
+
+```bash
+uv run python -m lecture_001_500_lines_claudecode.steps.step_05_code_agent
+```
 
 ## Project Structure
 
-## Usage
+```text
+assets/                         표지 이미지
+docs/                           장기 문서용 공간
+examples/001_500_lines_claudecode/                     1강 실습용 fixture
+notebooks/001_500_lines_claudecode.ipynb
+src/lecture_001_500_lines_claudecode/      1강 에이전트 구현 코드
+tests/                          단계별 동작과 LLM provider 테스트
+```
 
 ## Repository Policy
+
+- `.env`에는 실제 API 키를 넣되 커밋하지 않습니다.
+- 강의 본문은 notebook에, 실행 가능한 코드는 `src`에 둡니다.
+- 문서가 아니라 실습 입력으로 쓰는 파일은 `examples`에 둡니다.
 
 ## License
 

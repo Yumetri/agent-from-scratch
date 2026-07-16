@@ -26,13 +26,40 @@ Understand what happens behind each click, and become able to explain it instead
 
 ## Roadmap
 
-1. Build a tiny Claude Code-like agent in 400 lines (agent-loop)
+1. [Build a ClaudeCode-like agent in 500 lines](notebooks/001_500_lines_claudecode.ipynb)
+
+## Quick Start
+
+```bash
+uv sync
+cp .env.example .env
+uv run --group dev pytest
+```
+
+Add your OpenRouter or Gemini API key to `.env`. The lecture examples try OpenRouter first and fall back to Gemini when authentication fails or the OpenRouter key is missing.
+
+Run the final lecture 1 example:
+
+```bash
+uv run python -m lecture_001_500_lines_claudecode.steps.step_05_code_agent
+```
 
 ## Project Structure
 
-## Usage
+```text
+assets/                         Cover image
+docs/                           Long-lived documentation
+examples/001_500_lines_claudecode/                     Lecture 1 practice fixtures
+notebooks/001_500_lines_claudecode.ipynb
+src/lecture_001_500_lines_claudecode/      Lecture 1 agent implementation
+tests/                          Step behavior and LLM provider tests
+```
 
 ## Repository Policy
+
+- Put real API keys in `.env`, and do not commit them.
+- Keep lecture narrative in notebooks and runnable code in `src`.
+- Put practice input files in `examples`, not `docs`.
 
 ## License
 
