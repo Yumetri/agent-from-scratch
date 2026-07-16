@@ -13,54 +13,38 @@
 Today, I click again.
 
 The test code has been written, the tests have passed, and the commit message has been generated.  
-While the click is running, I am already planning what to ask for next.
+One click moves several steps of work forward in moments.
 
-It is convenient.  
-But it feels a little uncomfortable.
+The faster the results arrive, the more curious I become. What is actually happening behind that click?
 
-Shouldn't professionals try to understand how the tools they use actually work?
+Rather than stopping at how to use the tool, I decided to build a small agent and follow the process myself.
 
 ## Goal
 
-Understand what happens behind each click, and become able to explain it instead of just pretending to know.
+Understand what happens behind each click, explain how an agent works, and rebuild its core structure in a small amount of code.
 
 ## Roadmap
 
-1. [Build a ClaudeCode-like agent in 500 lines](notebooks/001_500_lines_claudecode.ipynb)
+1. [Lecture 1: Build Claude Code in 500 Lines](notebooks/001_500_lines_claudecode.ipynb)
 
-## Quick Start
+## Lecture 01 — Build Claude Code in 500 Lines
 
-```bash
-uv sync
-cp .env.example .env
-uv run --group dev pytest
-```
+Start with a memoryless LLM call and develop it into a code-editing agent that can read files, make changes, and verify execution results.
 
-Add your OpenRouter or Gemini API key to `.env`. The lecture examples try OpenRouter first and fall back to Gemini when authentication fails or the OpenRouter key is missing.
+Core concepts covered in this lecture:
 
-Run the final lecture 1 example:
+- Conversation history as the agent's memory
+- The difference between imitating function calls in a prompt and actual Tool Calling
+- A Tool Feedback Loop that returns execution results to the model
+- Tools for exploring, creating, and editing files
+- Verifying work through JavaScript execution results
+- A Workspace Guard that blocks access outside the working directory
 
-```bash
-uv run python -m lecture_001_500_lines_claudecode.steps.step_05_code_agent
-```
-
-## Project Structure
-
-```text
-assets/                         Cover image
-docs/                           Long-lived documentation
-examples/001_500_lines_claudecode/                     Lecture 1 practice fixtures
-notebooks/001_500_lines_claudecode.ipynb
-src/lecture_001_500_lines_claudecode/      Lecture 1 agent implementation
-tests/                          Step behavior and LLM provider tests
-```
-
-## Repository Policy
-
-- Put real API keys in `.env`, and do not commit them.
-- Keep lecture narrative in notebooks and runnable code in `src`.
-- Put practice input files in `examples`, not `docs`.
-
-## License
-
-This project is licensed under the MIT License.
+| Step | Capability added | Core concept |
+| --- | --- | --- |
+| 0 | Send only the current input to the LLM | An LLM API does not remember conversations automatically |
+| 1 | Accumulate previous messages | Conversation history creates the agent's memory |
+| 2 | Call `read_file` | The model creates structured Tool Calls |
+| 3 | Return tool results to the model | The Tool Feedback Loop lets the task continue |
+| 4 | Explore, create, and edit files | Multiple tools work together to complete real tasks |
+| 5 | Run code and protect paths | Execution is verified while the workspace stays constrained |

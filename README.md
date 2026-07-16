@@ -13,54 +13,38 @@
 오늘도 나는 "딸깍."을 한다.
 
 테스트 코드는 작성됐고, 테스트는 통과했고, 커밋 메시지도 만들어졌다.  
-딸깍이 돌아가는 동안 나는 다음에 무엇을 시킬지 계획만 세우고 있다.
+한 번의 클릭으로 여러 단계의 작업이 빠르게 끝난다.
 
-편하다.  
-그런데 조금 찝찝하다.
+결과가 빨리 나올수록 궁금해졌다. 이 딸깍 뒤에서는 대체 어떤 일이 일어나고 있을까?
 
-전문가라면, 자신이 쓰는 도구가 어떻게 동작하는지 이해하려고 해야 하지 않을까?
+사용법을 익히는 데서 멈추지 않고, 작은 에이전트를 직접 만들며 그 과정을 따라가 보기로 했다.
 
 ## Goal
 
-딸깍 한 번 뒤에서 어떤 일이 일어나는지 이해하고, 이제는 대충 아는 척이 아니라 설명할 수 있게 되기.
+딸깍 한 번 뒤에서 어떤 일이 일어나는지 이해하고, 에이전트의 동작 원리를 설명하며, 핵심 구조를 작은 코드로 다시 구현할 수 있게 되기.
 
 ## Roadmap
 
-1. [500줄로 ClaudeCode 만들기](notebooks/001_500_lines_claudecode.ipynb)
+1. [1강: 500줄로 Claude Code 만들기](notebooks/001_500_lines_claudecode.ipynb)
 
-## Quick Start
+## Lecture 01 — 500줄로 Claude Code 만들기
 
-```bash
-uv sync
-cp .env.example .env
-uv run --group dev pytest
-```
+기억 없는 LLM 호출에서 출발해, 파일을 읽고 수정하고 실행 결과까지 확인하는 코드 편집 에이전트로 발전시킵니다.
 
-`.env`에는 OpenRouter 또는 Gemini API 키를 넣습니다. 원본 강의 예제는 OpenRouter를 먼저 쓰고, 인증 실패나 키 누락 시 Gemini로 fallback하는 구조입니다.
+이번 강의에서 다루는 핵심 개념:
 
-1강의 최종 예제 실행:
+- `Conversation`을 이용한 대화 기억
+- 프롬프트로 함수 호출을 흉내 내는 것과 실제 `Tool Calling`의 차이
+- 도구 실행 결과를 모델에게 돌려주는 `Tool Feedback Loop`
+- 파일 탐색·생성·수정 도구 설계
+- JavaScript 실행 결과를 이용한 작업 검증
+- 작업공간 밖의 경로 접근을 막는 `Workspace Guard`
 
-```bash
-uv run python -m lecture_001_500_lines_claudecode.steps.step_05_code_agent
-```
-
-## Project Structure
-
-```text
-assets/                         표지 이미지
-docs/                           장기 문서용 공간
-examples/001_500_lines_claudecode/                     1강 실습용 fixture
-notebooks/001_500_lines_claudecode.ipynb
-src/lecture_001_500_lines_claudecode/      1강 에이전트 구현 코드
-tests/                          단계별 동작과 LLM provider 테스트
-```
-
-## Repository Policy
-
-- `.env`에는 실제 API 키를 넣되 커밋하지 않습니다.
-- 강의 본문은 notebook에, 실행 가능한 코드는 `src`에 둡니다.
-- 문서가 아니라 실습 입력으로 쓰는 파일은 `examples`에 둡니다.
-
-## License
-
-This project is licensed under the MIT License.
+| 단계 | 추가되는 능력 | 핵심 개념 |
+| --- | --- | --- |
+| 0 | 현재 입력만 LLM에 전달 | LLM API는 대화를 자동으로 기억하지 않는다 |
+| 1 | 이전 대화를 누적 | Conversation이 에이전트의 기억을 만든다 |
+| 2 | `read_file` 호출 | 모델이 구조화된 Tool Call을 만든다 |
+| 3 | 도구 결과를 모델에 전달 | Tool Feedback Loop가 작업을 이어 준다 |
+| 4 | 파일 탐색·생성·수정 | 여러 도구를 조합해 실제 작업을 수행한다 |
+| 5 | 코드 실행과 경로 보호 | 실행 결과를 검증하고 작업공간을 안전하게 제한한다 |
